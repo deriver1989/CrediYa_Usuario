@@ -1,4 +1,4 @@
-package co.com.pragma.api;
+package co.com.pragma.api.handler;
 
 import co.com.pragma.api.request.UsuarioRequest;
 import co.com.pragma.usecase.usuario.UsuarioUseCase;
@@ -13,8 +13,6 @@ import reactor.core.publisher.Mono;
 @Component
 @RequiredArgsConstructor
 public class HandlerAutenticacion {
-//private  final UseCase useCase;
-//private  final UseCase2 useCase2;
 
     private final UsuarioUseCase usuarioUseCase;
     private final Validator validator;
