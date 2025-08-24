@@ -29,14 +29,22 @@ public class UsuarioRepositoryAdapter implements UsuarioRepository {
                 usuario.getCorreo_electronico(),
                 usuario.getSalario_base()
         );
-        return usuarioEntityRepository.save(entity)
-                .as(txOperator::transactional)
-                .map(saved -> new Usuario(saved.getNombres(),
-                        saved.getApellidos(),
-                        saved.getFecha_nacimiento(),
-                        saved.getDireccion(),
-                        saved.getTelefono(),
-                        saved.getCorreo_electronico(),
-                        saved.getSalario_base()));
+        return usuarioEntityRepository.existsByCorreoElectronico(entity.getCorreoElectronico())
+                .flatMap(exists -> {
+                    if (exists) {
+                        return Mono.error(new RuntimeException("El usuario ya está registrado con este correo"));
+                    }
+                    return usuarioEntityRepository.save(entity)
+                            .as(txOperator::transactional)
+                            .map(saved -> new Usuario(saved.getNombres(),
+                                    saved.getApellidos(),
+                                    saved.getFechaNacimiento(),
+                                    saved.getDireccion(),
+                                    saved.getTelefono(),
+                                    saved.getCorreoElectronico(),
+                                    saved.getSalarioBase()));
+                });
+
+
     }
 }

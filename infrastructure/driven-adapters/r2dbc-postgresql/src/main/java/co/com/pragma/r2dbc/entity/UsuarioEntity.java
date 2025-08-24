@@ -1,5 +1,6 @@
 package co.com.pragma.r2dbc.entity;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,23 +24,26 @@ public class UsuarioEntity {
 
     private String apellidos;
 
-    private LocalDate fecha_nacimiento;
+    @Column(name = "fecha_nacimiento")
+    private LocalDate fechaNacimiento;
 
     private String direccion;
 
     private String telefono;
 
-    private String correo_electronico;
+    @Column(name = "correo_electronico")
+    private String correoElectronico;
 
-    private Double salario_base;
+    @Column(name = "salario_base")
+    private Double salarioBase;
 
-    public UsuarioEntity(String nombres, String apellidos, LocalDate fecha_nacimiento, String direccion, String telefono, String correo_electronico, Double salario_base) {
+    public UsuarioEntity(String nombres, String apellidos, LocalDate fechaNacimiento, String direccion, String telefono, String correoElectronico, Double salarioBase) {
         this.nombres = nombres;
         this.apellidos = apellidos;
-        this.fecha_nacimiento = fecha_nacimiento;
+        this.fechaNacimiento = fechaNacimiento;
         this.direccion = direccion;
         this.telefono = telefono;
-        this.correo_electronico = correo_electronico;
-        this.salario_base = salario_base;
+        this.correoElectronico = correoElectronico;
+        this.salarioBase = salarioBase;
     }
 }
