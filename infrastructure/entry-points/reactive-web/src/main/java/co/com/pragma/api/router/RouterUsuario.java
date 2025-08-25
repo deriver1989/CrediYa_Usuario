@@ -1,5 +1,6 @@
-package co.com.pragma.api;
+package co.com.pragma.api.router;
 
+import co.com.pragma.api.handler.HandlerAutenticacion;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -10,7 +11,8 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
-public class RouterRest {
+public class RouterUsuario {
+
     @Bean
     public RouterFunction<ServerResponse> routerFunction(HandlerAutenticacion handler) {
         return route(GET("/api/v1/usuarios"), handler::listenGETUseCase)
