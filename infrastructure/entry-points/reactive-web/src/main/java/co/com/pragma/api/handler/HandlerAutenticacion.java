@@ -19,11 +19,6 @@ public class HandlerAutenticacion {
     private final UsuarioUseCase usuarioUseCase;
     private final Validator validator;
 
-    public Mono<ServerResponse> listenGETUseCase(ServerRequest serverRequest) {
-        // useCase.logic();
-        return ServerResponse.ok().bodyValue("");
-    }
-
     public Mono<ServerResponse> holaMundo(ServerRequest serverRequest) {
         // useCase2.logic();
         return ServerResponse.ok().bodyValue("Hola Mundo");
@@ -63,9 +58,8 @@ public class HandlerAutenticacion {
                                     ServerResponse.badRequest().bodyValue(e.getMessage())
                             );
                 })
-                .onErrorResume(e -> {
-                    return ServerResponse.badRequest()
-                            .bodyValue("Error al guardar el usuario: " + e.getMessage());
-                });
+                .onErrorResume(e ->
+                     ServerResponse.badRequest().bodyValue("Error al guardar el usuario: " + e.getMessage())
+                );
     }
 }
