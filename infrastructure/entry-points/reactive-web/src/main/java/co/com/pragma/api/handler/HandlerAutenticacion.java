@@ -3,6 +3,7 @@ package co.com.pragma.api.handler;
 import co.com.pragma.api.request.UsuarioRequest;
 import co.com.pragma.usecase.usuario.UsuarioUseCase;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Validator;
@@ -12,6 +13,7 @@ import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class HandlerAutenticacion {
 
     private final UsuarioUseCase usuarioUseCase;
@@ -60,6 +62,10 @@ public class HandlerAutenticacion {
                             .onErrorResume(e ->
                                     ServerResponse.badRequest().bodyValue(e.getMessage())
                             );
+                })
+                .onErrorResume(e -> {
+                    return ServerResponse.badRequest()
+                            .bodyValue("Error al guardar el usuario: " + e.getMessage());
                 });
     }
 }

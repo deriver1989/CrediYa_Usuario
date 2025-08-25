@@ -12,6 +12,7 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 
 @Configuration
 public class RouterUsuario {
+
     @Bean
     public RouterFunction<ServerResponse> routerFunction(HandlerAutenticacion handler) {
         return route(GET("/api/v1/usuarios"), handler::listenGETUseCase)
