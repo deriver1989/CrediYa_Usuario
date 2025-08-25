@@ -11,6 +11,11 @@ spring:
       path: "/h2"
   profiles:
     include: null
+springdoc:
+  api-docs:
+    path: /api-docs # Path for the OpenAPI specification (JSON/YAML)
+  swagger-ui:
+    path: /swagger-ui.html # Path for the Swagger UI interface
 management:
   endpoints:
     web:
