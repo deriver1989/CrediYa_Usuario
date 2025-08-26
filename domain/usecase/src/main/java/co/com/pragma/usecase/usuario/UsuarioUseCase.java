@@ -14,21 +14,17 @@ public class UsuarioUseCase {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public Mono<Usuario> guardarUsuario(String nombres,
-                                        String apellidos,
-                                        LocalDate fecha_nacimiento,
-                                        String direccion,
-                                        String telefono,
-                                        String correo_electronico,
-                                        Double salario_base
-    ) {
-        Usuario usuario = new Usuario(nombres,
-                apellidos,
-                fecha_nacimiento,
-                direccion,
-                telefono,
-                correo_electronico,
-                salario_base);
-        return usuarioRepository.saveUsuario(usuario);
+    public Mono<Usuario> guardarUsuario(Usuario usuario) {
+
+        return usuarioRepository.existeCorreoElectronico(usuario.getCorreo_electronico())
+                .flatMap(exists -> {
+                    if (exists) {
+                        return Mono.error(new RuntimeException("El correo electrónico ya se encuentra registrado."));
+                    }
+                    return usuarioRepository.saveUsuario(usuario);
+                });
     }
+
+
+
 }
