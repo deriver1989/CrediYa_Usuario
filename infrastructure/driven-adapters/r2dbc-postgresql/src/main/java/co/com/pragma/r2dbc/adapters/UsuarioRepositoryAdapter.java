@@ -23,33 +23,34 @@ public class UsuarioRepositoryAdapter implements UsuarioRepository {
 
     @Override
     public Mono<Usuario> saveUsuario(Usuario usuario) {
-        UsuarioEntity entity = new UsuarioEntity(usuario.getNombres(),
-                usuario.getApellidos(),
-                usuario.getFecha_nacimiento(),
-                usuario.getDireccion(),
-                usuario.getTelefono(),
-                usuario.getCorreo_electronico(),
-                usuario.getSalario_base()
-        );
-        return usuarioEntityRepository.existsByCorreoElectronico(entity.getCorreoElectronico())
-                .flatMap(exists -> {
-                    if (exists) {
-                        return Mono.error(new RuntimeException("El usuario ya está registrado con este correo"));
-                    }
-                    return usuarioEntityRepository.save(entity)
-                            .as(txOperator::transactional)
-                            .map(saved -> new Usuario(saved.getNombres(),
-                                    saved.getApellidos(),
-                                    saved.getFechaNacimiento(),
-                                    saved.getDireccion(),
-                                    saved.getTelefono(),
-                                    saved.getCorreoElectronico(),
-                                    saved.getSalarioBase()));
-                })
+        UsuarioEntity entity = mapToUsuario(usuario);
+        return usuarioEntityRepository.save(entity)
+                .as(txOperator::transactional)
+                .map(saved -> new Usuario(saved.getNombres(),
+                        saved.getApellidos(),
+                        saved.getFechaNacimiento(),
+                        saved.getDireccion(),
+                        saved.getTelefono(),
+                        saved.getCorreoElectronico(),
+                        saved.getSalarioBase()))
                 .doOnError(error -> log.error("Error al guardar el usuario", error))
-                .doOnSuccess(user -> log.info("Proceso finalizado con éxito, el usuario ha sido guardado."))
-                ;
+                .doOnSuccess(user -> log.info("Proceso finalizado con éxito, el usuario ha sido guardado."));
+    }
 
+    @Override
+    public Mono<Boolean> existeCorreoElectronico(String correo) {
+        return usuarioEntityRepository.existsByCorreoElectronico(correo);
+    }
 
+    private UsuarioEntity mapToUsuario(Usuario request) {
+        return new UsuarioEntity(
+                request.getNombres(),
+                request.getApellidos(),
+                request.getFecha_nacimiento(),
+                request.getDireccion(),
+                request.getTelefono(),
+                request.getCorreo_electronico(),
+                request.getSalario_base()
+        );
     }
 }
