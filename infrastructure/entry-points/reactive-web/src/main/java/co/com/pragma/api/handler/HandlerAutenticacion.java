@@ -40,10 +40,10 @@ public class HandlerAutenticacion {
                         // devolver errores en formato JSON
                         return ServerResponse.badRequest().bodyValue(
                                 errors.getFieldErrors().stream()
-                                        .collect(java.util.stream.Collectors.toMap(
-                                                e -> e.getField(),
-                                                e -> e.getDefaultMessage()
-                                        ))
+                                        .collect(java.util.stream.Collectors.toMap(e ->
+                                                e.getField(),
+                                                e -> e.getDefaultMessage())
+                                        )
                         );
                     }
                     // si pasa validación → usar el caso de uso
@@ -53,8 +53,7 @@ public class HandlerAutenticacion {
                                     Map<String, Object> errorResponse = new HashMap<>();
                                     errorResponse.put("error", "Error al guardar el usuario");
                                     errorResponse.put("detalle", e.getMessage());
-                                    return ServerResponse.badRequest().bodyValue(errorResponse);
-                            });
+                                    return ServerResponse.badRequest().bodyValue(errorResponse);});
                 })
                 .onErrorResume(e ->
                      ServerResponse.badRequest().bodyValue("Error al guardar el usuario: " + e.getMessage())
