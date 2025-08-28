@@ -19,6 +19,13 @@ plugins {
 }
 dependencies {
     implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.3.0'
+    testImplementation 'io.projectreactor:reactor-test'
+    testImplementation 'io.projectreactor:reactor-test:3.6.0'
+
+}
+
+repositories {
+    mavenCentral()
 }
 
 sonar {
