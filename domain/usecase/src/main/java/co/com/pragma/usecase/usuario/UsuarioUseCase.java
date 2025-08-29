@@ -3,7 +3,6 @@ package co.com.pragma.usecase.usuario;
 import co.com.pragma.model.usuario.Usuario;
 import co.com.pragma.model.usuario.gateways.UsuarioRepository;
 import reactor.core.publisher.Mono;
-import java.time.LocalDate;
 
 //@RequiredArgsConstructor
 public class UsuarioUseCase {
