@@ -21,5 +21,5 @@ public class UserEntity {
     private UUID id;
     private String username;
     private String passwordHash;
-    private Set<String> roles;
+    private String roles;
 }
