@@ -13,8 +13,8 @@ public class AuthRouter {
 
     @Bean
     public RouterFunction<?> authRoutes(AuthHandler handler) {
-        return route(POST("/auth/signup"), handler::signUp)
-                .andRoute(POST("/auth/login"), handler::login)
-                .andRoute(GET("/auth/me"), handler::me);
+        return route(POST("/api/v1/login/signup"), handler::signUp)
+                .andRoute(POST("/api/v1/login/login"), handler::login)
+                .andRoute(GET("/api/v1/login/me"), handler::me);
     }
 }

@@ -24,12 +24,12 @@ public class AuthHandler {
         this.jwtService = jwtService;
     }
 
-    public record SignUpDTO(String username, String password) {}
+    public record SignUpDTO(String username, String password, Set<String> roles) {}
     public record LoginDTO(String username, String password) {}
 
     public Mono<ServerResponse> signUp(ServerRequest request) {
         return request.bodyToMono(SignUpDTO.class)
-                .flatMap(dto -> authService.register(dto.username(), dto.password(), Set.of("USER")))
+                .flatMap(dto -> authService.register(dto.username(), dto.password(), dto.roles))
                 .flatMap(u -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
                         .bodyValue(Map.of("id", u.getId(), "username", u.getUsername(), "roles", u.getRoles())));

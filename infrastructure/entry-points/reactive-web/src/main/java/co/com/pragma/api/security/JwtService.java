@@ -55,8 +55,6 @@ public class JwtService {
                 .subject(subject)
                 .claim("roles", roles)
                 .build();
-
-        //return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
         return this.encoder.encode(
                 JwtEncoderParameters.from(
                         JwsHeader.with(MacAlgorithm.HS256).build(),  // 👈 fuerza HS256
