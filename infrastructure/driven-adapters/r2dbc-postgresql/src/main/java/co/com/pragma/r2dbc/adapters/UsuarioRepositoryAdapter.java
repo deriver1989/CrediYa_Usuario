@@ -32,7 +32,9 @@ public class UsuarioRepositoryAdapter implements UsuarioRepository {
                         saved.getDireccion(),
                         saved.getTelefono(),
                         saved.getCorreoElectronico(),
-                        saved.getSalarioBase()))
+                        saved.getSalarioBase(),
+                        saved.getDocumento()
+                ))
                 .doOnError(error -> log.error("Error al guardar el usuario", error))
                 .doOnSuccess(user -> log.info("Proceso finalizado con éxito, el usuario ha sido guardado."));
     }
@@ -50,7 +52,8 @@ public class UsuarioRepositoryAdapter implements UsuarioRepository {
                 request.getDireccion(),
                 request.getTelefono(),
                 request.getCorreo_electronico(),
-                request.getSalario_base()
+                request.getSalario_base(),
+                request.getDocumento()
         );
     }
 }

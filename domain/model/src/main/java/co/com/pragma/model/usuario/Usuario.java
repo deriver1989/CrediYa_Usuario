@@ -27,4 +27,6 @@ public class Usuario {
     private String correo_electronico;
 
     private Double salario_base;
+
+    private String documento;
 }

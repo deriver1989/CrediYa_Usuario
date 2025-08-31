@@ -68,7 +68,8 @@ public class HandlerAutenticacion {
                 request.getDireccion(),
                 request.getTelefono(),
                 request.getCorreo_electronico(),
-                request.getSalario_base()
+                request.getSalario_base(),
+                request.getDocumento()
         );
     }
 }
