@@ -3,6 +3,7 @@ package co.com.pragma.r2dbc.adapters;
 import co.com.pragma.model.usuario.Usuario;
 import co.com.pragma.model.usuario.gateways.UsuarioRepository;
 import co.com.pragma.r2dbc.entity.UsuarioEntity;
+import co.com.pragma.r2dbc.mensaje.Mensaje;
 import co.com.pragma.r2dbc.repository.UsuarioEntityRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -35,8 +36,8 @@ public class UsuarioRepositoryAdapter implements UsuarioRepository {
                         saved.getSalarioBase(),
                         saved.getDocumento()
                 ))
-                .doOnError(error -> log.error("Error al guardar el usuario", error))
-                .doOnSuccess(user -> log.info("Proceso finalizado con éxito, el usuario ha sido guardado."));
+                .doOnError(error -> log.error(Mensaje.ERROR_GUARDAR_USUARIO, error))
+                .doOnSuccess(user -> log.info(Mensaje.GUARDAR_USUARIO_OK));
     }
 
     @Override

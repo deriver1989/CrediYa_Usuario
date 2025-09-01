@@ -3,6 +3,7 @@ package co.com.pragma.usecase.useraccount;
 import co.com.pragma.model.jwt.PasswordHasher;
 import co.com.pragma.model.useraccount.UserAccount;
 import co.com.pragma.model.useraccount.gateways.UserAccountRepository;
+import co.com.pragma.usecase.mensaje.Mensaje;
 import reactor.core.publisher.Mono;
 
 import java.util.Set;
@@ -23,12 +24,11 @@ public class UserAccountUseCase {
         return gateway.existsByUsername(username)
                 .flatMap(exists -> {
                     if (Boolean.TRUE.equals(exists)) {
-                        return Mono.error(new IllegalArgumentException("Usuario ya existe"));
+                        return Mono.error(new IllegalArgumentException(Mensaje.USUARIO_EXISTE));
                     }
                     var user = new UserAccount(
-                            null,//UUID.randomUUID().toString(),
+                            null,
                             username,
-                            //encoder.encode(rawPassword),
                             passwordHasher.hash(rawPassword),
                             roles == null || roles.isEmpty() ? Set.of("CLIENTE") : roles
                     );
@@ -38,10 +38,9 @@ public class UserAccountUseCase {
 
     public Mono<UserAccount> authenticate(String username, String rawPassword) {
         return gateway.findByUsername(username)
-                .switchIfEmpty(Mono.error(new IllegalArgumentException("Credenciales inválidas")))
-                //.flatMap(u -> encoder.matches(rawPassword, u.getPasswordHash())
+                .switchIfEmpty(Mono.error(new IllegalArgumentException(Mensaje.CREDENCIALES_INVALIDAS)))
                 .flatMap(u -> passwordHasher.matches(rawPassword, u.getPasswordHash())
                         ? Mono.just(u)
-                        : Mono.error(new IllegalArgumentException("Credenciales inválidas")));
+                        : Mono.error(new IllegalArgumentException(Mensaje.CREDENCIALES_INVALIDAS)));
     }
 }
