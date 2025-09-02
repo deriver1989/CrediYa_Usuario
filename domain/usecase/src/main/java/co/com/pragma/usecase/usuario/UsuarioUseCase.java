@@ -2,8 +2,8 @@ package co.com.pragma.usecase.usuario;
 
 import co.com.pragma.model.usuario.Usuario;
 import co.com.pragma.model.usuario.gateways.UsuarioRepository;
+import co.com.pragma.usecase.mensaje.Mensaje;
 import reactor.core.publisher.Mono;
-import java.time.LocalDate;
 
 //@RequiredArgsConstructor
 public class UsuarioUseCase {
@@ -19,7 +19,7 @@ public class UsuarioUseCase {
         return usuarioRepository.existeCorreoElectronico(usuario.getCorreo_electronico())
                 .flatMap(exists -> {
                     if (exists) {
-                        return Mono.error(new RuntimeException("El correo electrónico ya se encuentra registrado."));
+                        return Mono.error(new RuntimeException(Mensaje.CORREO_ELECTRONICO_REGISTRADO));
                     }
                     return usuarioRepository.saveUsuario(usuario);
                 });

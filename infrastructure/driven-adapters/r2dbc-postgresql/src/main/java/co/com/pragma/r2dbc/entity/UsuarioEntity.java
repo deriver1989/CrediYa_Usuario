@@ -37,7 +37,9 @@ public class UsuarioEntity {
     @Column(name = "salario_base")
     private Double salarioBase;
 
-    public UsuarioEntity(String nombres, String apellidos, LocalDate fechaNacimiento, String direccion, String telefono, String correoElectronico, Double salarioBase) {
+    private String documento;
+
+    public UsuarioEntity(String nombres, String apellidos, LocalDate fechaNacimiento, String direccion, String telefono, String correoElectronico, Double salarioBase, String documento) {
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.fechaNacimiento = fechaNacimiento;
@@ -45,5 +47,6 @@ public class UsuarioEntity {
         this.telefono = telefono;
         this.correoElectronico = correoElectronico;
         this.salarioBase = salarioBase;
+        this.documento = documento;
     }
 }

@@ -35,3 +35,7 @@ adapters:
     schema: null
     username: "postgres"
     password: 123456
+app:
+  jwt:
+    secret: "626f6f7463616d705f707261676d615f636c6176655f706172615f67656e657261725f746f6b656e"
+    expiration-minutes: 120

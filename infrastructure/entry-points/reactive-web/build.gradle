@@ -8,4 +8,7 @@ dependencies {
     implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.3.0'
     // Para pruebas reactivas (WebFlux y StepVerifier)
     testImplementation 'io.projectreactor:reactor-test'
+    implementation "org.springframework.security:spring-security-oauth2-jose:6.3.3"
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 }

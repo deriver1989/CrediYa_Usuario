@@ -22,6 +22,10 @@ dependencies {
     testImplementation 'io.projectreactor:reactor-test'
     testImplementation 'io.projectreactor:reactor-test:3.6.0'
 
+    //Seguridad
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    implementation "org.springframework.security:spring-security-oauth2-jose:6.3.3"
 }
 
 repositories {
