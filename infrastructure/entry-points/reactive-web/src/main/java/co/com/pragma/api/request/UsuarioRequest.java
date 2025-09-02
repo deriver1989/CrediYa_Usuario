@@ -36,4 +36,8 @@ public class UsuarioRequest {
     @DecimalMax(value = "15000000.0", inclusive = true, message = "El salario no puede superar 15,000,000")
     private Double salario_base;
 
+    @NotBlank(message = "El documento no puede estar vacío")
+    @NotNull(message = "El documento es obligatorio")
+    private String documento;
+
 }

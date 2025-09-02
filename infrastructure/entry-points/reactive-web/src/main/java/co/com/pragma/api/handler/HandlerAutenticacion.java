@@ -1,5 +1,6 @@
 package co.com.pragma.api.handler;
 
+import co.com.pragma.api.mensaje.Mensaje;
 import co.com.pragma.api.request.UsuarioRequest;
 import co.com.pragma.model.usuario.Usuario;
 import co.com.pragma.usecase.usuario.UsuarioUseCase;
@@ -48,15 +49,15 @@ public class HandlerAutenticacion {
                     }
                     // si pasa validación → usar el caso de uso
                     return  usuarioUseCase.guardarUsuario(mapToUsuario(userReq))
-                            .flatMap(user -> ServerResponse.ok().bodyValue("Usuario guardado con éxito."))
+                            .flatMap(user -> ServerResponse.ok().bodyValue(Mensaje.GUARDAR_USUARIO_OK))
                             .onErrorResume(e ->{
                                     Map<String, Object> errorResponse = new HashMap<>();
-                                    errorResponse.put("error", "Error al guardar el usuario");
+                                    errorResponse.put("error", Mensaje.ERROR_GUARDAR_USUARIO);
                                     errorResponse.put("detalle", e.getMessage());
                                     return ServerResponse.badRequest().bodyValue(errorResponse);});
                 })
                 .onErrorResume(e ->
-                     ServerResponse.badRequest().bodyValue("Error al guardar el usuario: " + e.getMessage())
+                     ServerResponse.badRequest().bodyValue(Mensaje.ERROR_GUARDAR_USUARIO+": " + e.getMessage())
                 );
     }
 
@@ -68,7 +69,8 @@ public class HandlerAutenticacion {
                 request.getDireccion(),
                 request.getTelefono(),
                 request.getCorreo_electronico(),
-                request.getSalario_base()
+                request.getSalario_base(),
+                request.getDocumento()
         );
     }
 }
