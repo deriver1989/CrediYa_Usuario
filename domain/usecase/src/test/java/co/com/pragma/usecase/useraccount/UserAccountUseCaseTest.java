@@ -169,33 +169,5 @@ class UserAccountUseCaseTest {
         assertEquals(username, result.getUsername());
 
     }
-/*
-    @Test
-    void register_newUser_shouldSaveUser() {
-        // Arrange
-        String username = "maria";
-        String rawPassword = "1234";
-        String hashedPassword = "hashed1234";
 
-        when(gateway.existsByUsername(username)).thenReturn(Mono.just(false));
-        when(passwordHasher.hash(rawPassword)).thenReturn(hashedPassword);
-
-        UserAccount savedUser = new UserAccount("1", username, hashedPassword, Set.of("ADMIN"));
-        when(gateway.save(ArgumentMatchers.any(UserAccount.class))).thenReturn(Mono.just(savedUser));
-
-        // Act
-        Mono<UserAccount> result = userAccountUseCase.register(username, rawPassword, Set.of("ADMIN"));
-
-        // Assert
-        StepVerifier.create(result)
-                .expectNextMatches(user ->
-                        user.getId().equals("1") &&
-                                user.getUsername().equals(username) &&
-                                user.getPasswordHash().equals(hashedPassword) &&
-                                user.getRoles().contains("ADMIN")
-                )
-                .verifyComplete();
-
-        verify(gateway, times(1)).save(ArgumentMatchers.any(UserAccount.class));
-    }*/
 }
