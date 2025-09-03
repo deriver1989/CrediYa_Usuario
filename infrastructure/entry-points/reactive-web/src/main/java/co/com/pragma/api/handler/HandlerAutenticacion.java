@@ -6,6 +6,7 @@ import co.com.pragma.model.usuario.Usuario;
 import co.com.pragma.usecase.usuario.UsuarioUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Validator;
@@ -49,7 +50,7 @@ public class HandlerAutenticacion {
                     }
                     // si pasa validación → usar el caso de uso
                     return  usuarioUseCase.guardarUsuario(mapToUsuario(userReq))
-                            .flatMap(user -> ServerResponse.ok().bodyValue(Mensaje.GUARDAR_USUARIO_OK))
+                            .flatMap(user -> ServerResponse.status(HttpStatus.CREATED).bodyValue(Mensaje.GUARDAR_USUARIO_OK))
                             .onErrorResume(e ->{
                                     Map<String, Object> errorResponse = new HashMap<>();
                                     errorResponse.put("error", Mensaje.ERROR_GUARDAR_USUARIO);
