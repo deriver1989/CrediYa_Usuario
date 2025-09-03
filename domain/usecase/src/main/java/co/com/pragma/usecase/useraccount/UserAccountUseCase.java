@@ -7,12 +7,11 @@ import co.com.pragma.usecase.mensaje.Mensaje;
 import reactor.core.publisher.Mono;
 
 import java.util.Set;
-import java.util.UUID;
 
 public class UserAccountUseCase {
 
     private final UserAccountRepository gateway;
-    //private final PasswordEncoder encoder;
+
     private final PasswordHasher passwordHasher;
 
     public UserAccountUseCase (UserAccountRepository gateway, PasswordHasher passwordHasher){

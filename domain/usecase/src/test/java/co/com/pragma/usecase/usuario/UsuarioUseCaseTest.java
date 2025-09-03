@@ -34,7 +34,8 @@ class UsuarioUseCaseTest {
                 "Calle 123",
                 "3001234567",
                 "juan@test.com",
-                1500.0
+                1500.0,
+                "9151203"
         );
 
         when(usuarioRepository.existeCorreoElectronico(usuario.getCorreo_electronico()))
@@ -62,7 +63,8 @@ class UsuarioUseCaseTest {
                 "Carrera 45",
                 "3109876543",
                 "ana@test.com",
-                2000.0
+                2000.0,
+                "9151202"
         );
 
         when(usuarioRepository.existeCorreoElectronico(usuario.getCorreo_electronico()))
