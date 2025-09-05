@@ -3,6 +3,7 @@ package co.com.pragma.api.handler;
 
 import co.com.pragma.api.security.JwtService;
 import co.com.pragma.usecase.useraccount.UserAccountUseCase;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
@@ -30,7 +31,7 @@ public class AuthHandler {
     public Mono<ServerResponse> signUp(ServerRequest request) {
         return request.bodyToMono(SignUpDTO.class)
                 .flatMap(dto -> authService.register(dto.username(), dto.password(), dto.roles))
-                .flatMap(u -> ServerResponse.ok()
+                .flatMap(u -> ServerResponse.status(HttpStatus.CREATED)
                         .contentType(MediaType.APPLICATION_JSON)
                         .bodyValue(Map.of("id", u.getId(), "username", u.getUsername(), "roles", u.getRoles())));
     }
